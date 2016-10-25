@@ -1,0 +1,23 @@
+a {
+color: blue; text-decoration: none;
+}
+
+h1 {
+font-family: sans-serif;
+}
+
+h2 {
+font-family: arial;
+}
+
+body {
+margin: 0;
+}
+
+div {
+display: flex;
+flex-direction: column;
+width: 100vw; height: 100vh;
+justify-content: center;
+align-items: center;
+}
