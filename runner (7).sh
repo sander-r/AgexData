@@ -51,6 +51,9 @@ fi
 for dir in $DIRECTORIES
 do
     CUR_DIR=$DEST_PATH$dir
+
+    mkdir -p $CUR_DIR/_ADMINISTRATION/_archived
+
     cd $CUR_DIR
 
     echo
@@ -61,13 +64,13 @@ do
 
     if [ -f $CUR_DIR/_ADMINISTRATION/status_log_$dir.xlsx ]; then
         # get OSX date
-        LAST_MODIFIED=$(echo -e "import datetime, os\nprint datetime.datetime.fromtimestamp(os.stat('$BASE_DIR/$dir/_ADMINISTRATION/status_log_$dir.xlsx').st_birthtime).strftime('%y_%m_%d')" | python)
+        LAST_MODIFIED=$(echo -e "import datetime, os\nprint datetime.datetime.fromtimestamp(os.stat('$CUR_DIR/_ADMINISTRATION/status_log_$dir.xlsx').st_birthtime).strftime('%y_%m_%d')" | python)
         # get Linux date
         #LAST_MODIFIED=$(date '+%y-%m-%d' -r $CUR_DIR/_ADMINISTRATION/status_log_$dir.xlsx)
         mv $CUR_DIR/_ADMINISTRATION/status_log_$dir.xlsx $CUR_DIR/_ADMINISTRATION/_archived/status_log_"$dir"_"$LAST_MODIFIED".xlsx
     fi
 
-    python $BASE_DIR/$SCRIPT_NAME --file-folder ../$CUR_DIR --output _ADMINISTRATION/status_log_$dir.xlsx --excel $BASE_DIR/$XLS_FILE
+    python $BASE_DIR/$SCRIPT_NAME --file-folder $CUR_DIR --output $CUR_DIR/_ADMINISTRATION/status_log_$dir.xlsx --excel $BASE_DIR/$XLS_FILE
 
     echo "######################"
     echo "# "$dir" finished"
